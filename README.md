@@ -1,59 +1,194 @@
-# EcommerceApp
+# 🅰️ My First Angular Project – Learning by Practice
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Welcome to my first Angular project! 🎉  
+In this project, I explored the basics of Angular structure, component creation, data binding, and Bootstrap integration.  
+This README documents all the steps and notes I practiced while building this app.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📁 Project Structure
 
-```bash
-ng serve
-```
+Inside the `src/app` directory, I created the following:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### ✅ Models
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+I generated two interfaces to represent my data:
 
 ```bash
-ng generate component component-name
+ng g i IProduct
+ng g i ICategory
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+These interfaces live inside a dedicated `/models` folder and help structure the data passed between components.
+
+---
+
+### 🧱 Components
+
+I organized all components under the `/components` folder:
+
+- **Header Component**  
+
+  ```bash
+  ng g c Header
+  ```
+
+- **Footer Component**  
+
+  ```bash
+  ng g c Footer
+  ```
+
+- **Products Component**  
+
+  ```bash
+  ng g c Products
+  ```
+
+Each component has its own HTML, CSS, TypeScript, and spec files.
+
+---
+
+## 🎨 Bootstrap Integration
+
+To enhance the UI, I installed Bootstrap using:
 
 ```bash
-ng generate --help
+npm i bootstrap
 ```
 
-## Building
+Then added Bootstrap paths to `angular.json` under `"styles"` and `"scripts"`:
 
-To build the project run:
+```json
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+],
+"scripts": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+]
+```
+
+---
+
+## ▶️ Running the App
+
+To start the Angular app and open it in the browser:
 
 ```bash
-ng build
+ng serve --open
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🧩 Displaying Components in App
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+I cleaned up the default template in `app.component.html` and used custom selectors to render my components:
+
+```html
+<app-header></app-header>
+<app-products></app-products>
+<app-footer></app-footer>
+```
+
+> ✅ Make sure each component is declared in `AppModule` (`app.module.ts`) under the `declarations` array, and any required modules are in `imports`.
+
+---
+
+## 🔄 Angular Data Binding
+
+In the `ProductsComponent`, I practiced all four types of Angular bindings:
+
+### 1. **Interpolation (`{{}}`)**
+
+Displays values from the component class to the template:
+
+```html
+<h1>{{ productName }}</h1>
+```
+
+### 2. **Property Binding (`[property]`)**
+
+Binds a property in the DOM to a value in the component:
+
+```html
+<img [src]="product.imageUrl">
+```
+
+### 3. **Event Binding (`(event)`)**
+
+Triggers a method in the component when an event occurs:
+
+```html
+<button (click)="addToCart(product)">Add to Cart</button>
+```
+
+### 4. **Two-Way Binding (`[(ngModel)]`)**
+
+Combines property and event binding for dynamic input/output:
+
+```html
+<select [(ngModel)]="selectedCategory">
+  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+</select>
+```
+
+✅ Don’t forget to import `FormsModule` in `app.module.ts` for `ngModel` to work:
+
+```ts
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [
+    FormsModule
+  ]
+})
+export class AppModule { }
+```
+
+---
+
+## 📦 Summary of What I Learned
+
+✅ Organizing Angular app with models and components  
+✅ Using Angular CLI to generate interfaces and components  
+✅ Integrating Bootstrap via `angular.json`  
+✅ Rendering custom components in the main app  
+✅ Practicing all 4 types of Angular bindings  
+✅ Using `ngModel` and `FormsModule` for two-way data binding  
+
+---
+
+## 🚀 Run Locally
+
+Clone the project and run it locally:
 
 ```bash
-ng test
+git clone https://github.com/momenelnakeeb/Angular-Practice-.git
+cd ecommerceApp
+npm install
+ng serve --open
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 📸 Preview
 
-```bash
-ng e2e
-```
+![alt text](image.png)
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📚 Technologies Used
 
-## Additional Resources
+- Angular
+- Bootstrap
+- TypeScript
+- HTML/CSS
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 📬 Contact
+
+Feel free to reach out or open an issue if you have any questions or suggestions!
+
+---
