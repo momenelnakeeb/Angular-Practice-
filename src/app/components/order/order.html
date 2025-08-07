@@ -1,0 +1,21 @@
+<select
+  class="form-select"
+  aria-label="Default select example"
+  [(ngModel)]="selectedCategoryID"
+>
+  <option selected value="0">All</option>
+  <option *ngFor="let category of categories" [value]="category.id">
+    {{ category.name }}
+  </option>
+</select>
+<div class="bg-warning my-5">
+  <!-- the parent can pass to the child from the selecto -->
+  <!-- with a variable that has a proberty binding -->
+  <!-- 3- the order needs to listen to the parent  -->
+  <!-- then go to define this calculateTotalPrice -->
+  <app-products
+    [recieveCategoryID]="selectedCategoryID"
+    (onTotalPriceChanges)="calculateTotalPrice($event)"
+  ></app-products>
+</div>
+<h1>{{ recivedTotalPrice }}</h1>

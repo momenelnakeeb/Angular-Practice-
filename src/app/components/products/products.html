@@ -1,33 +1,32 @@
 <h1>Total order price: {{ totalPriceNumber }}</h1>
-<h2>selected category id: {{ selectedCategoryID }}</h2>
-
-<select
-  class="form-select"
-  aria-label="Default select example"
-  [(ngModel)]="selectedCategoryID"
->
-  <option selected>Open this select menu</option>
-  <option *ngFor="let category of categories" [value]="category.id">
-    {{ category.name }}
-  </option>
-</select>
+<!-- <h2>Selected category ID: {{ selectedCategoryID }}</h2> -->
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let product of products">
-      <div class="card h-100">
+    <!-- <ng-container *ngFor="let product of products; let i = index"> -->
+    @for (product of filteredProducts; track product.id ;let i = $index) {
+    <div class="col-md-4 mb-4">
+      <div class="card h-100" appHighlightCard="gray" externalcolor="pink">
         <img
           class="card-img-top"
           [src]="product.imageURL"
           [alt]="product.name"
         />
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
+        <div class="card-body" [style.background-color]="">
+          <h5 class="card-title">{{ i + 1 }}. {{ product.name }}</h5>
           <p class="card-text">
-            Price: ${{ product.price }}<br />
-            Quantity: {{ product.quantitiy }}<br />
+            Price: {{ product.price | currency : "EUR" : "code" }}<br />
+            Quantity: {{ product.quantity }}<br />
             Category ID: {{ product.categoryID }}
           </p>
+
+          <ng-template #lastItem>
+            <p class="card-text">
+              Price: ${{ product.price }}<br />
+              Quantity: last item<br />
+              Category ID: {{ product.categoryID }}
+            </p>
+          </ng-template>
           <input type="number" #countInput />
           <button
             class="btn btn-success"
@@ -41,5 +40,9 @@
         </div>
       </div>
     </div>
+    }
+    <!-- </ng-container> -->
   </div>
 </div>
+
+<!-- <h2>{{ num | square : 3 }}</h2> -->
