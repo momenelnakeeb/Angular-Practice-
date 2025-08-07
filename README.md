@@ -8,20 +8,63 @@ This e-commerce application demonstrates fundamental Angular concepts including 
 ## 📁 Project Structure
 
 ```
-src/app/
-├── components/
-│   ├── header/
-│   ├── footer/
-│   ├── products/
-│   └── order/
-├── models/
-│   ├── iproduct.ts
-│   └── icategory.ts
-├── directives/
-│   └── highlight-card.ts
-├── pipes/
-│   └── square-pipe.ts
-└── app.component.ts
+.editorconfig
+.gitignore
+.vscode
+   |-- extensions.json
+   |-- launch.json
+   |-- tasks.json
+README.md
+angular.json
+image.png
+package-lock.json
+package.json
+public
+   |-- favicon.ico
+src
+   |-- app
+   |   |-- app.config.ts
+   |   |-- app.css
+   |   |-- app.html
+   |   |-- app.routes.ts
+   |   |-- app.spec.ts
+   |   |-- app.ts
+   |   |-- components
+   |   |   |-- footer
+   |   |   |   |-- footer.css
+   |   |   |   |-- footer.html
+   |   |   |   |-- footer.spec.ts
+   |   |   |   |-- footer.ts
+   |   |   |-- header
+   |   |   |   |-- header.css
+   |   |   |   |-- header.html
+   |   |   |   |-- header.spec.ts
+   |   |   |   |-- header.ts
+   |   |   |-- order
+   |   |   |   |-- order.css
+   |   |   |   |-- order.html
+   |   |   |   |-- order.spec.ts
+   |   |   |   |-- order.ts
+   |   |   |-- products
+   |   |   |   |-- products.css
+   |   |   |   |-- products.html
+   |   |   |   |-- products.spec.ts
+   |   |   |   |-- products.ts
+   |   |-- directives
+   |   |   |-- highlight-card.spec.ts
+   |   |   |-- highlight-card.ts
+   |   |-- models
+   |   |   |-- icategory.ts
+   |   |   |-- iproduct.ts
+   |   |-- pipes
+   |   |   |-- square-pipe.spec.ts
+   |   |   |-- square-pipe.ts
+   |-- index.html
+   |-- main.ts
+   |-- styles.css
+tsconfig.app.json
+tsconfig.json
+tsconfig.spec.json
 ```
 
 ---
@@ -38,6 +81,7 @@ ng g i ICategory
 ```
 
 **IProduct Interface:**
+
 ```typescript
 export interface Iproduct {
     id: number;
@@ -50,6 +94,7 @@ export interface Iproduct {
 ```
 
 **ICategory Interface:**
+
 ```typescript
 export interface Icategory {
     id: number;
@@ -113,6 +158,7 @@ In `app.component.html`, I replaced the default content with my custom component
 ```
 
 **App Component TypeScript:**
+
 ```typescript
 import { Component, signal } from '@angular/core';
 import { Header } from './components/header/header';
@@ -135,6 +181,7 @@ export class App {
 ## 🔄 Angular Data Binding - The 6 Types
 
 ### 1. **Interpolation (`{{}}`)**
+
 Displays component data in the template:
 
 ```html
@@ -143,6 +190,7 @@ Displays component data in the template:
 ```
 
 ### 2. **Property Binding (`[property]`)**
+
 Binds DOM properties to component values (dynamic values):
 
 ```html
@@ -151,6 +199,7 @@ Binds DOM properties to component values (dynamic values):
 ```
 
 ### 3. **Event Binding (`(event)`)**
+
 Handles events from view to controller:
 
 ```html
@@ -158,6 +207,7 @@ Handles events from view to controller:
 ```
 
 ### 4. **Two-Way Binding (`[(ngModel)]`)**
+
 Combines property and event binding for form inputs:
 
 ```html
@@ -172,6 +222,7 @@ Combines property and event binding for form inputs:
 > **Important:** Import `FormsModule` for `ngModel` to work!
 
 ### 5. **Class Binding (`[class.className]`)**
+
 Conditionally applies CSS classes:
 
 ```html
@@ -181,6 +232,7 @@ Conditionally applies CSS classes:
 ```
 
 ### 6. **Style Binding (`[style.property]`)**
+
 Conditionally applies inline styles:
 
 ```html
@@ -194,6 +246,7 @@ Conditionally applies inline styles:
 ### Built-in Directives
 
 #### **1. Component Directives**
+
 Every component has a selector that acts as a directive:
 
 ```typescript
@@ -204,9 +257,11 @@ Every component has a selector that acts as a directive:
 ```
 
 #### **2. Structural Directives**
+
 Change DOM layout by adding/removing elements:
 
 **NgFor with Template Variables:**
+
 ```html
 @for (product of filteredProducts; track product.id; let i = $index) {
   <div class="col-md-4 mb-4">
@@ -217,6 +272,7 @@ Change DOM layout by adding/removing elements:
 ```
 
 **NgFor Variables Available:**
+
 - `$implicit`: The current item
 - `$index`: Current index
 - `$count`: Total length
@@ -226,6 +282,7 @@ Change DOM layout by adding/removing elements:
 - `$odd`: True if odd index
 
 **TrackBy Function (Performance Optimization):**
+
 ```typescript
 trackItem(index: number, item: Iproduct) {
   return item.id; // Return unique identifier
@@ -233,6 +290,7 @@ trackItem(index: number, item: Iproduct) {
 ```
 
 **NgIf with NgContainer (Multiple Directives):**
+
 ```html
 <ng-container *ngFor="let product of products">
   <div *ngIf="product.quantity > 0">
@@ -242,6 +300,7 @@ trackItem(index: number, item: Iproduct) {
 ```
 
 **Modern Control Flow (Angular 17+):**
+
 ```html
 @for (product of products; track product.id) {
   <div>{{ product.name }}</div>
@@ -261,6 +320,7 @@ trackItem(index: number, item: Iproduct) {
 ```
 
 #### **3. Attribute Directives**
+
 Change appearance or behavior without changing DOM structure:
 
 - `ngModel`: Two-way data binding
@@ -274,11 +334,13 @@ Change appearance or behavior without changing DOM structure:
 I created a custom highlight directive for interactive cards:
 
 **Generate Directive:**
+
 ```bash
 ng g directive highlightCard
 ```
 
 **HighlightCard Directive:**
+
 ```typescript
 import { Directive, ElementRef, HostListener, Input, OnChanges } from '@angular/core';
 
@@ -306,6 +368,7 @@ export class HighlightCard implements OnChanges {
 ```
 
 **Usage in Template:**
+
 ```html
 <div class="card" appHighlightCard="gray" externalcolor="pink">
   <!-- Card content -->
@@ -319,6 +382,7 @@ export class HighlightCard implements OnChanges {
 Pipes transform displayed values without changing the original data.
 
 ### Built-in Pipes
+
 ```html
 <!-- Currency pipe -->
 Price: {{ product.price | currency : "EUR" : "code" }}
@@ -330,11 +394,13 @@ Price: {{ product.price | currency : "EUR" : "code" }}
 ### Custom Pipe
 
 **Generate Pipe:**
+
 ```bash
 ng g pipe square
 ```
 
 **Square Pipe Implementation:**
+
 ```typescript
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -349,6 +415,7 @@ export class SquarePipe implements PipeTransform {
 ```
 
 **Usage:**
+
 ```html
 <h2>{{ num | square : 3 }}</h2>
 ```
@@ -362,6 +429,7 @@ export class SquarePipe implements PipeTransform {
 #### **Parent to Child (@Input)**
 
 **Child Component (Products):**
+
 ```typescript
 export class Products implements OnChanges {
   @Input() recieveCategoryID: number = 0;
@@ -383,6 +451,7 @@ export class Products implements OnChanges {
 ```
 
 **Parent Template (Order):**
+
 ```html
 <app-products [recieveCategoryID]="selectedCategoryID"></app-products>
 ```
@@ -390,6 +459,7 @@ export class Products implements OnChanges {
 #### **Child to Parent (@Output)**
 
 **Child Component (Products):**
+
 ```typescript
 export class Products {
   @Output() onTotalPriceChanges: EventEmitter<number> = new EventEmitter<number>();
@@ -403,6 +473,7 @@ export class Products {
 ```
 
 **Parent Component (Order):**
+
 ```typescript
 export class Order {
   recivedTotalPrice: number = 0;
@@ -414,6 +485,7 @@ export class Order {
 ```
 
 **Parent Template:**
+
 ```html
 <app-products 
   [recieveCategoryID]="selectedCategoryID"
@@ -434,6 +506,7 @@ export class Order {
 4. **ngAfterViewInit**: Called after view initialization
 
 **Example Implementation:**
+
 ```typescript
 export class Products implements OnChanges, OnInit, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
@@ -458,6 +531,7 @@ export class Products implements OnChanges, OnInit, OnDestroy {
 ### Products Component
 
 **TypeScript:**
+
 ```typescript
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Iproduct } from '../../models/iproduct';
@@ -523,6 +597,7 @@ export class Products implements OnChanges {
 ### Order Component
 
 **TypeScript:**
+
 ```typescript
 import { Component } from '@angular/core';
 import { Icategory } from '../../models/icategory';
@@ -557,12 +632,14 @@ export class Order {
 ## 📚 Key Concepts Learned
 
 ### ✅ Angular Fundamentals
+
 - Project structure and organization
 - Component creation and management
 - Service and interface generation
 - Module imports and declarations
 
 ### ✅ Data Binding Mastery
+
 - Interpolation for displaying data
 - Property binding for dynamic attributes
 - Event binding for user interactions
@@ -570,24 +647,28 @@ export class Order {
 - Class and style binding for conditional styling
 
 ### ✅ Directives Deep Dive
-- Built-in structural directives (*ngFor, *ngIf, *ngSwitch)
+
+- Built-in structural directives (*ngFor,*ngIf, *ngSwitch)
 - Modern control flow (@for, @if, @switch)
 - Attribute directives (ngModel, ngClass, ngStyle)
 - Custom directive creation with @HostListener
 - Performance optimization with TrackBy
 
 ### ✅ Component Communication
+
 - Parent-to-child communication with @Input
 - Child-to-parent communication with @Output and EventEmitter
 - Component lifecycle hooks (ngOnChanges, ngOnInit)
 - Event handling and data flow
 
 ### ✅ Pipes and Transformations
+
 - Built-in pipes (currency, date)
 - Custom pipe creation
 - Data transformation without mutating original data
 
 ### ✅ Modern Angular Features
+
 - Standalone components
 - Signal-based reactivity
 - New control flow syntax
@@ -598,22 +679,26 @@ export class Order {
 ## 🚀 Running the Project
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/momenelnakeeb/Angular-Practice-.git
    cd ecommerceApp
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Start the development server:**
+
    ```bash
    ng serve --open
    ```
 
 4. **Build for production:**
+
    ```bash
    ng build --prod
    ```
@@ -633,17 +718,20 @@ export class Order {
 ## 📈 Advanced Features Implemented
 
 ### Performance Optimizations
+
 - TrackBy functions for efficient *ngFor rendering
 - OnPush change detection strategy ready
 - Lazy loading preparation
 
 ### Code Quality
+
 - TypeScript interfaces for type safety
 - Component lifecycle implementation
 - Separation of concerns (models, components, directives, pipes)
 - Reactive programming with EventEmitter
 
 ### User Experience
+
 - Interactive card highlighting
 - Real-time filtering
 - Dynamic total price calculation
@@ -654,12 +742,14 @@ export class Order {
 ## 🔮 Next Steps & Learning Path
 
 ### Immediate Improvements
+
 - [ ] Implement Angular services for data management
 - [ ] Add HTTP client for API integration
 - [ ] Implement routing and navigation
 - [ ] Add form validation
 
 ### Advanced Topics to Explore
+
 - [ ] State management with NgRx
 - [ ] Angular Material integration
 - [ ] Unit testing with Jasmine/Karma
@@ -676,6 +766,5 @@ export class Order {
 - **Bootstrap Documentation:** [getbootstrap.com](https://getbootstrap.com)
 
 Feel free to explore the code, open issues, or contribute improvements! This project represents my journey from Angular basics to more advanced concepts, and I'm excited to continue learning and building with Angular.
-
 
 *Happy coding! 🚀*
